@@ -1,14 +1,69 @@
 <script setup>
   import HomePage from './pages/HomePage.vue';
+  import gridTeam from './pages/gridTeam.vue';
+  import gridLeader from './pages/gridLeader.vue';
+  import {ref,reactive} from 'vue';
+  const wordList = ["apple", "banana", "ball", "bat", "car", "dog", "cat", "house", "tree", "sun",
+  "moon", "star", "book", "pen", "pencil", "table", "chair", "shirt", "shoe", "cup",
+  "glass", "plate", "bottle", "phone", "computer", "mouse", "keyboard", "bag", "box", "fan",
+  "light", "clock", "door", "window", "bus", "train", "road", "bridge", "river", "sea",
+  "sky", "cloud", "rain", "snow", "fire", "ice", "sand", "stone", "mountain", "hill",
+  "chai", "rickshaw", "biryani", "kurta", "diya", "rangoli", "namaste", "puja", "mandir", "temple",
+  "pani", "dosa", "samosa", "gulab", "jalebi", "lakshmi", "ganesha", "holi", "diwali", "namak",
+  "mirchi", "roti", "dal", "sabzi", "thali", "ladoo", "kachori", "pav", "bhaji", "chappal",
+  "cycle", "lorry", "railway", "passport", "aadhar", "bazaar", "toffee", "station", "metro", "ticket",
+  "note", "coin", "rupee", "bank", "school", "teacher", "student", "uniform", "exam", "result",
+  "music", "movie", "actor", "dance", "cricket", "football", "player", "team", "match", "goal",
+  "score", "coach", "batting", "bowling", "stadium", "audience", "fan", "medal", "game", "win",
+  "loss", "draw", "umpire", "referee", "practice", "training", "kit", "trophy", "champion", "race",
+  "finish", "start", "track", "event", "parade", "flag", "anthem", "drum", "beat", "rhythm",
+  "curry", "mango", "festival", "idol", "temple", "god", "photo", "selfie", "video", "camera",
+  "charger", "plug", "cable", "wifi", "router", "signal", "app", "mobile", "android", "iphone",
+  "website", "link", "page", "username", "password", "login", "logout", "profile", "message", "call",
+  "email", "inbox", "reply", "forward", "attachment", "file", "folder", "laptop", "monitor", "screen",
+  "speaker", "mic", "desk", "office", "boss", "manager", "job", "work", "salary", "hike",
+  "bonus", "leave", "holiday", "weekend", "movie", "serial", "episode", "channel", "remote", "TV",
+  "news", "anchor", "debate", "politics", "minister", "leader", "speech", "vote", "election", "campaign",
+  "rally", "crowd", "police", "traffic", "signal", "jam", "roadblock", "helmet", "license", "petrol",
+  "diesel", "engine", "tyre", "horn", "garage", "mechanic", "schoolbag", "chalk", "board", "homework",
+  "subject", "maths", "science", "history", "geography", "civics", "marks", "result", "parents", "guardian",
+  "tuition", "coaching", "exam", "topper", "fail", "pass", "degree", "college", "hostel", "room",
+  "canteen", "mess", "friends", "group", "party", "function", "marriage", "bride", "groom", "saree",
+  "sherwani", "mehendi", "haldi", "baraat", "dance", "song", "DJ", "gift", "sweets", "chocolate",
+  "laddu", "barfi", "rasgulla", "chaiwala", "sabjiwala", "doodhwala", "mechanic", "plumber", "carpenter", "driver",
+  "guard", "peon", "teacher", "doctor", "nurse", "chemist", "hospital", "clinic", "ambulance", "injection",
+  "tablet", "medicine", "bandage", "fever", "cough", "cold", "headache", "stomach", "pain", "injury",
+  "wound", "blood", "report", "test", "scan", "x-ray", "operation", "surgery", "recovery", "fitness",
+  "gym", "yoga", "exercise", "weight", "diet", "health", "body", "mind", "stress", "sleep",
+  "dream", "nightmare", "bed", "pillow", "blanket", "fan", "AC", "cooler", "fridge", "oven",
+  "stove", "plate", "spoon", "bowl", "knife", "pan", "kadai", "cooker", "tiffin", "bottle",
+  "lunch", "dinner", "breakfast", "snack", "tea", "coffee", "milk", "water", "juice", "cold",
+  "drink", "pepsi", "coke", "fanta", "limca", "soda", "samosa", "pakoda", "puri", "kachori",
+  "sandwich", "burger", "pizza", "noodles", "pasta", "chowmein", "chutney", "ketchup", "sauce", "fork",
+  "napkin", "tissue", "bin", "soap", "brush", "towel", "shampoo", "cream", "lotion", "powder",
+  "mirror", "comb", "bindi", "bangles", "earrings", "necklace", "ring", "bracelet", "purse", "wallet",
+  "belt", "jeans", "kurti", "t-shirt", "coat", "blazer", "socks", "shoes", "boots", "slipper",
+  "bag", "handbag", "trolley", "suitcase", "passport", "ticket", "visa", "airport", "flight", "train",
+  "station", "platform", "auto", "cab", "taxi", "hotel", "room", "key", "bell", "reception",
+  "booking", "bill", "cash", "card", "ATM", "balance", "withdraw", "deposit", "transfer", "bank",
+  "branch", "manager", "form", "signature", "queue", "token", "number", "electricity", "gas", "water",
+  "bill", "meter", "reading", "shop", "mall", "market", "counter", "discount", "offer", "sale",
+  "shopping", "dress", "trial", "mirror", "brand", "label", "MRP", "barcode", "security", "guard",
+  "gate", "exit", "entry"
+];
 
-  var role="";
+  var role=reactive({role:''});
   const assignRole=(r)=>{
-    role=r;
+    role.role=r;
   }
+  
+  
 </script>
 
 <template>
-  <HomePage @role="assignRole"/>
+  <HomePage @role="assignRole" v-if="role.role==''"/>
+  <gridTeam v-if="role.role=='member'"/>
+  <gridLeader v-if="role.role=='leader'"/>
 </template>
 <style scoped>
   
