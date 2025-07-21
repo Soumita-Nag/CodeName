@@ -15,13 +15,18 @@
 </template>
 
 <script setup>
-const emit=defineEmits(['role']);
+import { onMounted } from 'vue';
+const emit=defineEmits(['role','resetWords']);
 const assignLeader=()=>{
     emit('role','leader');
 }
 const assignMember=()=>{
     emit('role','member');
 }
+onMounted(() => {
+    // resetWords()
+    emit('resetWords',true)
+})
 </script>
 
 <style scoped>

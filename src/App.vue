@@ -109,8 +109,8 @@
 </script>
 
 <template>
-  <HomePage @role="assignRole" v-if="role.role==''"/>
-  <gridTeam v-if="role.role=='member'"/>
+  <HomePage @role="assignRole" v-if="role.role==''" @resetWords="resetWords"/>
+  <gridTeam v-if="role.role=='member'" :wordList="displayedWordsObject"/>
   <gridLeader v-if="role.role=='leader'" @resetWords="resetWords" :wordList="displayedWordsObject"/>
 </template>
 <style scoped>

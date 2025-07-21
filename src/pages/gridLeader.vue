@@ -19,22 +19,9 @@
       wordList:Array,
     })
     const emit=defineEmits(['resetWords']);
-    // const displayedWords = ref([])
-
-    // function resetWords() { 
-    // const shuffled = [...props.wordList].sort(() => 0.5 - Math.random())
-    // displayedWords.value = shuffled.slice(0, 25)
-    // emit('newDisplayWord',displayedWords);
-    // }
-    
     const resetWords=()=>{
       emit('resetWords',true)
     }
-
-    onMounted(() => {
-    // resetWords()
-    emit('resetWords',true)
-    })
 </script>
 
 <style scoped>
