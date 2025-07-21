@@ -105,13 +105,15 @@
 
     return result;
   }
-  
+  const revealCell=(index)=>{
+    displayedWordsObject.value[index].revealed=1;
+  }
 </script>
 
 <template>
   <HomePage @role="assignRole" v-if="role.role==''" @resetWords="resetWords"/>
   <gridTeam v-if="role.role=='member'" :wordList="displayedWordsObject"/>
-  <gridLeader v-if="role.role=='leader'" @resetWords="resetWords" :wordList="displayedWordsObject"/>
+  <gridLeader v-if="role.role=='leader'" @revealCell="revealCell" @resetWords="resetWords" :wordList="displayedWordsObject"/>
 </template>
 <style scoped>
   

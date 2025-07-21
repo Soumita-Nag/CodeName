@@ -8,7 +8,7 @@
     </button>
 
     <div class="grid grid-cols-5 gap-2 w-full max-w-4xl">
-      <div v-for="(word, index) in props.wordList" :key="index" class=" cursor-pointer h-24 md:h-32 bg-white border-4 text-gray-700 border-gray-500 rounded-lg shadow-sm flex justify-center items-center text-xl capitalize font-bold hover:scale-105 hover:bg-blue-50 transition-all duration-200 ease-in-out" :class="[word.colorCode==1&&word.revealed==0?'red':word.colorCode==2&&word.revealed==0?'blue':word.colorCode==3&&word.revealed==0?'black':'']" @dblclick="revealCell">
+      <div v-for="(word, index) in props.wordList" :key="index" class=" cursor-pointer h-24 md:h-32 bg-white border-4 text-gray-700 border-gray-500 rounded-lg shadow-sm flex justify-center items-center text-xl capitalize font-bold hover:scale-105 hover:bg-blue-50 transition-all duration-200 ease-in-out" :class="[word.colorCode==1&&word.revealed==0?'red':word.colorCode==2&&word.revealed==0?'blue':word.colorCode==3&&word.revealed==0?'black':'']" @dblclick="revealCell(index)">
         {{ word.word }}
       </div>
     </div>
@@ -21,9 +21,12 @@
     const props=defineProps({
       wordList:Array,
     })
-    const emit=defineEmits(['resetWords']);
+    const emit=defineEmits(['resetWords','revealCell']);
     const resetWords=()=>{
       emit('resetWords',true)
+    }
+    const revealCell=(index)=>{
+      emit('revealCell',index);
     }
 </script>
 
