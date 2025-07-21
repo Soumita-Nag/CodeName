@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-screen p-4 md:p-10 bg-gray-100 flex justify-center items-center">
-    <div v-if="wordList.values.length==0" class="pb-30">
+    <div v-if="props.wordList.length==0" class="pb-30">
       <h4 class="md:text-4xl sm:text-2xl text-xl font-semibold">⏳ Wait for the Leader to create the Grid...</h4>
     </div>
     <div v-else class="grid grid-cols-5 gap-2 w-full max-w-4xl">

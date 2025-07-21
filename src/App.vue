@@ -2,7 +2,7 @@
   import HomePage from './pages/HomePage.vue';
   import gridTeam from './pages/gridTeam.vue';
   import gridLeader from './pages/gridLeader.vue';
-  import {ref,reactive} from 'vue';
+  import {ref,reactive,onMounted} from 'vue';
   const wordList = ["apple", "banana", "ball", "bat", "car", "dog", "cat", "house", "tree", "sun",
   "moon", "star", "book", "pen", "pencil", "table", "chair", "shirt", "shoe", "cup",
   "glass", "plate", "bottle", "phone", "computer", "mouse", "keyboard", "bag", "box", "fan",
@@ -63,6 +63,7 @@
     const shuffled = [...wordList].sort(() => 0.5 - Math.random())
     displayedWords.value = shuffled.slice(0, 25)
     displayedWordsObject.value=assignWords(displayedWords.value);
+    uploadWords(displayedWordsObject);
     console.log(displayedWordsObject.value)
   }
   
@@ -105,13 +106,43 @@
 
     return result;
   }
-  const revealCell=(index)=>{
-    displayedWordsObject.value[index].revealed=1;
-  }
+  const revealCell = async (index) => {
+  displayedWordsObject.value[index].revealed = 1;
+
+  const gameRef = doc(db, "games", "room123");
+  await setDoc(gameRef, {
+    wordList: displayedWordsObject.value,
+    timestamp: Date.now()
+  });
+};
+
+
+  import { db } from './firebase';
+  import { doc, setDoc, onSnapshot } from 'firebase/firestore';
+
+  const uploadWords = async (arr) => {
+  const gameId = "room123"; 
+
+  // overwrites old data
+  await setDoc(doc(db, "games", gameId), {
+    wordList: arr.value,
+    timestamp: Date.now()  //tracks refresh time
+  }); 
+};
+
+onMounted(() => {
+  const gameRef = doc(db, "games", "room123");
+  onSnapshot(gameRef, (docSnap) => {
+    if (docSnap.exists()) {
+      displayedWordsObject.value = docSnap.data().wordList;
+    }
+  });
+});
+
 </script>
 
 <template>
-  <HomePage @role="assignRole" v-if="role.role==''" @resetWords="resetWords"/>
+  <HomePage @role="assignRole" v-if="role.role==''" />
   <gridTeam v-if="role.role=='member'" :wordList="displayedWordsObject"/>
   <gridLeader v-if="role.role=='leader'" @revealCell="revealCell" @resetWords="resetWords" :wordList="displayedWordsObject"/>
 </template>
