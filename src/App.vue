@@ -56,14 +56,62 @@
   const assignRole=(r)=>{
     role.role=r;
   }
+
+  var displayedWords=ref([]);
+  var displayedWordsObject=ref([]);
+  const resetWords=(resetWords)=> { 
+    const shuffled = [...wordList].sort(() => 0.5 - Math.random())
+    displayedWords.value = shuffled.slice(0, 25)
+    displayedWordsObject.value=assignWords(displayedWords.value);
+    console.log(displayedWordsObject.value)
+  }
   
+  const assignWords=(arr)=> {
+    if (arr.length !== 25) {
+      throw new Error("Word array must contain exactly 25 words.");
+    }
+
+    const indices = Array.from({ length: 25 }, (_, i) => i);
+    
+    // Shuffle indices
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+
+    // Assign roles
+    const redIndices = indices.slice(0, 9);
+    const blueIndices = indices.slice(9, 17);
+    const blackIndex = indices[17];
+    
+    const result = arr.map((word, idx) => {
+      let colorCode = 0; 
+      let revealed=0;
+
+      if (redIndices.includes(idx)) {
+        colorCode = 1;
+      } else if (blueIndices.includes(idx)) {
+        colorCode = 2;
+      } else if (idx === blackIndex) {
+        colorCode = 3;
+      }
+
+      return {
+        word,
+        colorCode,
+        revealed,
+      };
+    });
+
+    return result;
+  }
   
 </script>
 
 <template>
   <HomePage @role="assignRole" v-if="role.role==''"/>
   <gridTeam v-if="role.role=='member'"/>
-  <gridLeader v-if="role.role=='leader'"/>
+  <gridLeader v-if="role.role=='leader'" @resetWords="resetWords" :wordList="displayedWordsObject"/>
 </template>
 <style scoped>
   
