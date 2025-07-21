@@ -1,7 +1,10 @@
 <template>
   <div class="w-full h-screen p-4 md:p-10 bg-gray-100 flex flex-col items-center justify-center space-y-4">
-    <button @click="resetWords" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 cursor-pointer">
+    <button v-if="props.wordList.length!=0" @click="resetWords" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 cursor-pointer">
       🔄 Refresh Words
+    </button>
+    <button v-else @click="resetWords" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 cursor-pointer">
+      🛠️ Create Grid
     </button>
 
     <div class="grid grid-cols-5 gap-2 w-full max-w-4xl">

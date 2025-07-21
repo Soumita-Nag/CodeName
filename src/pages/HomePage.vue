@@ -23,10 +23,10 @@ const assignLeader=()=>{
 const assignMember=()=>{
     emit('role','member');
 }
-onMounted(() => {
-    // resetWords()
-    emit('resetWords',true)
-})
+// onMounted(() => {
+//     // resetWords()
+//     emit('resetWords',true)
+// })
 </script>
 
 <style scoped>
