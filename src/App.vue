@@ -134,9 +134,19 @@
     timestamp: Date.now()  //tracks refresh time
   }); 
 };
-const joinRoom=(newValue)=>{
-  console.log(newValue.value)
-}
+const joinRoom = async (newValue) => {
+  gameId.id = newValue.value;
+  const gameRef = doc(db, "games", gameId.id);
+
+  onSnapshot(gameRef, (docSnap) => {
+    if (docSnap.exists()) {
+      displayedWordsObject.value = docSnap.data().wordList;
+    } else {
+      alert("Game ID not found. Please check and try again.");
+    }
+  });
+};
+
 // onMounted(() => {
 //   const gameRef = doc(db, "games", gameId.id);
 //   onSnapshot(gameRef, (docSnap) => {
