@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full h-screen bg-gray-100 flex flex-col items-center justify-center p-4 space-y-6">
-    <div class="mt-6 w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
-      <label for="gameId" class="block text-gray-700 font-semibold mb-2">
+  <div class="w-full h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black bg-gray-100 flex flex-col items-center justify-center p-4 space-y-6">
+    <div class="w-full select-none max-w-md bg-[#1e1e2f] border border-gray-700 rounded-2xl shadow-2xl p-8 space-y-8 animate-pop text-white">
+      <label for="gameId" class="text-xl font-bold text-center tracking-wide">
         Enter Unique Game ID:
       </label>
-      <input type="text" v-model="gameId" placeholder="Enter Game ID to join" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4" />
-      <button @click="checkGameId" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200" >
+      <input type="text" v-model="gameId" placeholder="Enter Game ID to join" class="w-full px-4 py-2 mt-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-5" />
+      <button @click="checkGameId" class="w-full cursor-pointer py-3 rounded-xl bg-blue-700 text-white text-lg font-semibold shadow-md hover:bg-blue-800 hover:scale-105 transition-all duration-300 ease-in-out tracking-wider" >
         Submit
       </button>
     </div>

@@ -165,7 +165,7 @@ const joinRoomMember=(newValue)=>{
 </script>
 <template>
   <HomePage @role="assignRole" v-if="role.role==''" />
-  <gridTeam v-if="role.role=='member' && gameId.id.length!=0" :wordList="displayedWordsObject"/>
+  <gridTeam v-if="role.role=='member' && gameId.id.length!=0" :wordList="displayedWordsObject" :gameId="gameId.id"/>
   <gridLeader v-if="role.role=='leader' && gameId.id.length!=0" @revealCell="revealCell" @resetWords="resetWords" :wordList="displayedWordsObject" :gameId="gameId.id"/>
   <CreateRoom v-if="role.role=='leader' && gameId.id.length==0" @gameId="generateGameId" @joinRoom="joinRoomLeader"/>
   <JoinRoom v-if="role.role=='member' && gameId.id.length==0" @gameId="joinRoomMember"/>
