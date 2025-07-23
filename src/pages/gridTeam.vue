@@ -23,19 +23,19 @@ const props=defineProps({
 <style scoped>
 .red{
   background-color: rgb(253, 126, 126);
-  border: 4px solid rgb(255, 77, 77);
+  border-color: rgb(255, 77, 77);
   border-radius: 10px;
   color: rgb(89, 0, 0)
 }
 .blue{
   background-color: rgb(121, 188, 255);
-  border: 4px solid rgb(61, 158, 255);
+  border-color:rgb(61, 158, 255);
   border-radius: 10px;
   color: rgb(0, 22, 94)
 }
 .black{
   background-color: rgb(116, 116, 116);
-  border: 4px solid rgb(60, 60, 60);
+  border-color: rgb(60, 60, 60);
   border-radius: 10px;
   color: rgb(255, 255, 255)
 }
