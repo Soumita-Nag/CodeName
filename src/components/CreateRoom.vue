@@ -38,10 +38,23 @@ import { ref } from 'vue';
         const gameId = time.toString(16);
         emit('gameId', gameId);
     };
+    import { db } from '@/firebase';
+    import { doc, getDoc } from "firebase/firestore";
 
-    const joinRoom = () => {
-        emit('joinRoom', enteredGameId);
+    const joinRoom = async () => {
+    const gameRef = doc(db, "games", enteredGameId.value); 
+    const docSnap = await getDoc(gameRef);
+
+    if (docSnap.exists()) {
+        emit("joinRoom", enteredGameId);
+    } else {
+        alert("Invalid Game ID. Please check and try again.");
+    }
     };
+
+    // const joinRoom = () => {
+    //     emit('joinRoom', enteredGameId);
+    // };
 
 </script>
 <style scoped>

@@ -15,7 +15,21 @@
 import { ref } from 'vue';
     const gameId=ref('');
     const emit=defineEmits(['gameId']);
-    const checkGameId=()=>{
-        emit('gameId',gameId);
+    import { db } from '@/firebase';
+    import { doc, getDoc } from "firebase/firestore";
+
+    const checkGameId = async () => {
+    const gameRef = doc(db, "games", gameId.value); 
+    const docSnap = await getDoc(gameRef);
+
+    if (docSnap.exists()) {
+        emit("gameId", gameId);
+    } else {
+        alert("Invalid Game ID. Please check and try again.");
     }
+    };
+
+    // const checkGameId=()=>{
+    //     emit('gameId',gameId);
+    // }
 </script>

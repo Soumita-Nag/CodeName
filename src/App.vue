@@ -162,18 +162,7 @@ const joinRoomMember=(newValue)=>{
   joinRoom(newValue,'member')
 }
 
-// onMounted(() => {
-//   const gameRef = doc(db, "games", gameId.id);
-//   onSnapshot(gameRef, (docSnap) => {
-//     if (docSnap.exists()) {
-//       displayedWordsObject.value = docSnap.data().wordList;
-//     }
-//   });
-// });
-
-
 </script>
-<!-- 19837f6db10 -->
 <template>
   <HomePage @role="assignRole" v-if="role.role==''" />
   <gridTeam v-if="role.role=='member' && gameId.id.length!=0" :wordList="displayedWordsObject"/>
