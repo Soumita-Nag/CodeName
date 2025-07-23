@@ -2,6 +2,8 @@
   import HomePage from './pages/HomePage.vue';
   import gridTeam from './pages/gridTeam.vue';
   import gridLeader from './pages/gridLeader.vue';
+  import CreateRoom from './components/CreateRoom.vue';
+  import JoinRoom from './components/JoinRoom.vue';
   import {ref,reactive,onMounted} from 'vue';
   const wordList = ["apple", "banana", "ball", "bat", "car", "dog", "cat", "house", "tree", "sun",
   "moon", "star", "book", "pen", "pencil", "table", "chair", "shirt", "shoe", "cup",
@@ -55,6 +57,10 @@
   var role=reactive({role:''});
   const assignRole=(r)=>{
     role.role=r;
+  }
+  var gameId=reactive({id:''});
+  const generateGameId=(newValue)=>{
+    gameId.id=newValue
   }
 
   var displayedWords=ref([]);
@@ -121,30 +127,33 @@
   import { doc, setDoc, onSnapshot } from 'firebase/firestore';
 
   const uploadWords = async (arr) => {
-  const gameId = "room123"; 
 
   // overwrites old data
-  await setDoc(doc(db, "games", gameId), {
+  await setDoc(doc(db, "games", gameId.id), {
     wordList: arr.value,
     timestamp: Date.now()  //tracks refresh time
   }); 
 };
-
-onMounted(() => {
-  const gameRef = doc(db, "games", "room123");
-  onSnapshot(gameRef, (docSnap) => {
-    if (docSnap.exists()) {
-      displayedWordsObject.value = docSnap.data().wordList;
-    }
-  });
-});
+const joinRoom=(newValue)=>{
+  console.log(newValue.value)
+}
+// onMounted(() => {
+//   const gameRef = doc(db, "games", gameId.id);
+//   onSnapshot(gameRef, (docSnap) => {
+//     if (docSnap.exists()) {
+//       displayedWordsObject.value = docSnap.data().wordList;
+//     }
+//   });
+// });
 
 </script>
-
+<!-- 19837f6db10 -->
 <template>
   <HomePage @role="assignRole" v-if="role.role==''" />
-  <gridTeam v-if="role.role=='member'" :wordList="displayedWordsObject"/>
-  <gridLeader v-if="role.role=='leader'" @revealCell="revealCell" @resetWords="resetWords" :wordList="displayedWordsObject"/>
+  <gridTeam v-if="role.role=='member' && gameId.id.length!=0" :wordList="displayedWordsObject"/>
+  <gridLeader v-if="role.role=='leader' && gameId.id.length!=0" @revealCell="revealCell" @resetWords="resetWords" :wordList="displayedWordsObject" :gameId="gameId.id"/>
+  <CreateRoom v-if="role.role=='leader' && gameId.id.length==0" @gameId="generateGameId"/>
+  <JoinRoom v-if="role.role=='member' && gameId.id.length==0" @gameId="joinRoom"/>
 </template>
 <style scoped>
   
