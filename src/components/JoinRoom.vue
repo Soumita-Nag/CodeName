@@ -1,12 +1,15 @@
 <template>
-    <div>
-        <div>
-            <label for="gameId">Enter Unique Game-Id</label>
-            <input type="text" placeholder="Enter Game Id to join" v-model="gameId">
-            <button @click="checkGameId">Join Room</button>
-            <h1>{{ gameId }}</h1>
-        </div>
+  <div class="w-full h-screen bg-gray-100 flex flex-col items-center justify-center p-4 space-y-6">
+    <div class="mt-6 w-full max-w-sm bg-white p-6 rounded-lg shadow-lg">
+      <label for="gameId" class="block text-gray-700 font-semibold mb-2">
+        Enter Unique Game ID:
+      </label>
+      <input type="text" v-model="gameId" placeholder="Enter Game ID to join" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4" />
+      <button @click="checkGameId" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200" >
+        Submit
+      </button>
     </div>
+  </div>
 </template>
 <script setup>
 import { ref } from 'vue';
