@@ -115,7 +115,7 @@
   const revealCell = async (index) => {
   displayedWordsObject.value[index].revealed = 1;
 
-  const gameRef = doc(db, "games", "room123");
+  const gameRef = doc(db, "games", gameId.id);
   await setDoc(gameRef, {
     wordList: displayedWordsObject.value,
     timestamp: Date.now()
@@ -134,18 +134,33 @@
     timestamp: Date.now()  //tracks refresh time
   }); 
 };
-const joinRoom = async (newValue) => {
-  gameId.id = newValue.value;
+const joinRoom = async (newValue, role) => {
+  gameId.id = newValue;
   const gameRef = doc(db, "games", gameId.id);
 
   onSnapshot(gameRef, (docSnap) => {
     if (docSnap.exists()) {
-      displayedWordsObject.value = docSnap.data().wordList;
+      if (role === 'member') {
+        displayedWordsObject.value = docSnap.data().wordList
+          .map(w => ({
+            ...w,
+            colorCode: w.revealed ? w.colorCode : 0  
+          }));
+      } else if (role === 'leader') {
+        displayedWordsObject.value = docSnap.data().wordList;
+      }
     } else {
       alert("Game ID not found. Please check and try again.");
     }
   });
 };
+
+const joinRoomLeader=(newValue)=>{
+  joinRoom(newValue,'leader');
+}
+const joinRoomMember=(newValue)=>{
+  joinRoom(newValue,'member')
+}
 
 // onMounted(() => {
 //   const gameRef = doc(db, "games", gameId.id);
@@ -156,14 +171,15 @@ const joinRoom = async (newValue) => {
 //   });
 // });
 
+
 </script>
 <!-- 19837f6db10 -->
 <template>
   <HomePage @role="assignRole" v-if="role.role==''" />
   <gridTeam v-if="role.role=='member' && gameId.id.length!=0" :wordList="displayedWordsObject"/>
   <gridLeader v-if="role.role=='leader' && gameId.id.length!=0" @revealCell="revealCell" @resetWords="resetWords" :wordList="displayedWordsObject" :gameId="gameId.id"/>
-  <CreateRoom v-if="role.role=='leader' && gameId.id.length==0" @gameId="generateGameId"/>
-  <JoinRoom v-if="role.role=='member' && gameId.id.length==0" @gameId="joinRoom"/>
+  <CreateRoom v-if="role.role=='leader' && gameId.id.length==0" @gameId="generateGameId" @joinRoom="joinRoomLeader"/>
+  <JoinRoom v-if="role.role=='member' && gameId.id.length==0" @gameId="joinRoomMember"/>
 </template>
 <style scoped>
   
