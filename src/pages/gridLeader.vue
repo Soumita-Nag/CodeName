@@ -1,6 +1,6 @@
 <template>
   <div class="w-full select-none h-screen p-4 bg-gradient-to-br from-gray-900 via-gray-800 to-black md:p-10 bg-gray-100 flex flex-col items-center justify-center space-y-4">
-    <h1 class="font-semibold text-sm sm:text-xl md:text-2xl text-white">Unique Game Id: <span class=" select-all">{{ props.gameId }}</span></h1>
+    <h1 class="font-semibold text-sm sm:text-xl md:text-2xl text-white">Unique Game Id: <span class=" select-text">{{ props.gameId }}</span></h1>
     <button v-if="props.wordList.length!=0" @click="resetWords" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200 cursor-pointer">
       🔄 Refresh Words
     </button>
