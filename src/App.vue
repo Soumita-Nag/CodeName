@@ -70,7 +70,7 @@
     displayedWords.value = shuffled.slice(0, 25)
     displayedWordsObject.value=assignWords(displayedWords.value);
     uploadWords(displayedWordsObject);
-    console.log(displayedWordsObject.value)
+    // console.log(displayedWordsObject.value)
   }
   
   const assignWords=(arr)=> {

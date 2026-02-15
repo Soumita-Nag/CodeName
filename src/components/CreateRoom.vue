@@ -1,6 +1,6 @@
 <template>
   <div class="w-full bg-gradient-to-br from-gray-900 via-gray-800 to-black h-screen bg-gray-100 flex flex-col items-center justify-center p-4 space-y-6">
-    <div class="space-x-4">
+    <div class="space-x-4" v-if="!showJoinForm">
       <button @click="generateGameId" class="px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg cursor-pointer shadow-md hover:bg-yellow-700 transition duration-200" >
          Create Room
       </button>
